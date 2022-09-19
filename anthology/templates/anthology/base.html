@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE hmtl>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/anthology.css" %}" rel="stylesheet">
+  </head>
+  <body>
+    <div id="content">{% block content %} {% endblock %}</div>
+    <div id="sidebar">
+      <h2>The anthology.</h2>
+      <p>This is our art.</p>
+    </div>
+  </body>
+</html>
