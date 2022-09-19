@@ -6,4 +6,6 @@
   <a href="{{ post.get_absolute_url }}"> {{ post.title }} </a>
 </h2>
 <p class="date">Published {{ post.publish }} by {{ post.poet }}</p>
-{{ post.body|truncatewords:20|linebreaks }} {% endfor %} {% endblock %}
+{{ post.body|truncatewords:20|linebreaks }} {% endfor %}
+{% include "anthology/pagination/pagination.html" with page=posts %}
+ {%endblock%}
