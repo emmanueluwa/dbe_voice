@@ -8,4 +8,23 @@
   Share this post
   </a>
 </p>
+ {% comment %} with template helps avoid hitting db or accessing expensive methods(eg template parsing) multiple times {% endcomment %}
+{% with comments.count as total_comments %}
+<h2>
+{{ total_comments }} comment{{ total_comments|pluralize }}
+</h2>
+{% endwith %}
+
+{% comment %} active comments {% endcomment %}
+{% for comment in comments %}
+  <div class="comment">
+    <p class="info">
+      Comment {{ forloop.counter }} by {{ comment.username }} {{ comment.created }}
+    </p>
+    {{ comment.body|linebreaks }}
+  </div>
+  {% empty %}
+  <p>There are no comments.</p>
+{% endfor %}
+{% include "anthology/post/includes/comment_form.html" %}
 {% endblock %}

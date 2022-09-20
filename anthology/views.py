@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .forms import EmailPostForm
+from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 def post_list(request):
@@ -29,7 +30,12 @@ def post_detail(request, year, month, day, post):
             publish__month=month,
             publish__day=day
         )
-    return render(request, 'anthology/post/detail.html', {'post': post})
+    #active comment list for post
+    #leverage post object to retreive related comment objects
+    comments = post.comments.filter(active=True)
+    #for to add a comment
+    form = CommentForm()
+    return render(request, 'anthology/post/detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
 """
@@ -61,3 +67,20 @@ def post_share(request, post_id):
     else:
         form = EmailPostForm()
     return render(request, 'anthology/post/share.html', {'post':post, 'form':form, 'sent': sent})
+
+#commenting on post(post submission)
+@require_POST #only allow post requests for this view
+def post_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    #variable used to store comment object when created
+    comment = None
+    #comment posted
+    form = CommentForm(data=request.POST)
+    if form.is_valid():
+        #create model instance(for comment object) but don't save it to db yet
+        comment = form.save(commit=False)
+        #assign post to the comment
+        comment.post = post
+        comment.save()
+    return render(request, 'anthology/post/comment.html', {'post':post, 'form': form, 'comment': comment})
+
