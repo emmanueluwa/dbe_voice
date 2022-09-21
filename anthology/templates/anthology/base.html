@@ -12,6 +12,11 @@
       <p>
         This is our art. <br />{% total_posts %} posts have been added so far.
       </p>
+      <p>
+        <a href="{% url 'anthology:post_feed' %}">
+          Subscribe to our RSS feed
+        </a>
+      </p>
       <h3>Latest posts</h3>
       {% show_latest_posts 3 %}
       <h3>Most commented posts</h3>
