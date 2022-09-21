@@ -5,19 +5,25 @@ body {
 }
 
 a {
-  color: #00abff;
+  color: #3E6B61;
   text-decoration: none;
 }
 
 h1 {
+  color: #203632;
   font-weight: normal;
   border-bottom: 1px solid #bbb;
   padding: 0 0 10px 0;
 }
 
 h2 {
+  color: #25403A;
   font-weight: normal;
   margin: 30px 0 0;
+}
+
+h3 {
+  color: #25403A;
 }
 
 #content {
@@ -30,12 +36,12 @@ h2 {
   float: right;
   width: 30%;
   padding: 10px;
-  background: #efefef;
+  background: #A4BAB5;
   height: 100%;
 }
 
 p.date {
-  color: #ccc;
+  color: #3E6B61;
   font-family: georgia, serif;
   font-size: 12px;
   font-style: italic;
@@ -68,7 +74,7 @@ textarea {
 
 input[type=submit] {
   font-weight: bold;
-  background: #00abff;
+  background: #4E877A;
   color: #fff;
   padding: 10px 20px;
   font-size: 14px;
@@ -94,5 +100,5 @@ input[type=submit] {
 .comment .info {
   font-weight: bold;
   font-size: 12px;
-  color: #666;
+  color: #3E6B61;
 }
